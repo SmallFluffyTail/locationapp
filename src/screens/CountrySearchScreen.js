@@ -4,6 +4,12 @@ import { Text, TextInput, Button, Card, Chip, ActivityIndicator } from 'react-na
 import { useAuth } from '../context/AuthContext';
 import { COLORS, globalStyles } from '../theme/theme';
 
+
+
+/**
+ * Maiden hakunäyttö.
+ * Käyttäjä voi hakea maita nimellä sekä tarkastella kunkin maan perustietoja.
+ */
 export default function CountrySearchScreen() {
   const { user, logout } = useAuth();
   const [query, setQuery] = useState('');
@@ -31,12 +37,22 @@ export default function CountrySearchScreen() {
     }
   };
 
+/**
+ * Suodatetaan hakutulokset aktiivisen suodattimen mukaan
+ */
+
   const filteredResults = results.filter((c) => {
     if (filter === 'europe') return c.region === 'Europe';
     if (filter === 'large') return c.population > 50_000_000;
     if (filter === 'un') return c.unMember === true;
     return true;
   });
+
+
+/**
+   Yksittäisen maan kortti hakutuloslistassa.
+   Näyttää lipun, nimen, alueen, väkiluvun, pääkaupungin, kielet sekä YK-jäsenyyden, jos se on voimassa.
+*/
 
   const renderItem = ({ item }) => (
     <Card style={[globalStyles.card, styles.countryCard]}>
@@ -125,6 +141,8 @@ export default function CountrySearchScreen() {
   );
 }
 
+
+/*Tyylit*/
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',

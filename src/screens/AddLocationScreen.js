@@ -4,6 +4,10 @@ import { Text, TextInput, Button, Switch, HelperText } from 'react-native-paper'
 import { useLocations } from '../context/LocationContext';
 import { COLORS, globalStyles } from '../theme/theme';
 
+/**
+ * Tähtivalitsin-komponentti, jolla käyttäjä voi antaa arvosanan 1–5 tähteä.
+ * Aktiiviset tähdet näytetään korostettuna, loput harmaana.
+ */
 function StarSelector({ value, onChange }) {
   return (
     <View style={styles.stars}>
@@ -17,6 +21,11 @@ function StarSelector({ value, onChange }) {
     </View>
   );
 }
+
+/**
+ * Näyttö uuden sijainnin lisäämiseen.
+ * Käyttäjä voi syöttää nimen, kuvauksen, arvosanan sekä valita jaetaanko sijainti kaikkien käyttäjien nähtäväksi.
+ */
 
 export default function AddLocationScreen({ navigation }) {
   const { addLocation } = useLocations();
@@ -118,7 +127,7 @@ export default function AddLocationScreen({ navigation }) {
     </ScrollView>
   );
 }
-
+/*Tyylit*/
 const styles = StyleSheet.create({
   content: { padding: 16 },
   label: { fontSize: 14, fontWeight: '600', color: COLORS.text, marginBottom: 4, marginTop: 8 },

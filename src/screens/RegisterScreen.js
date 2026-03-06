@@ -4,6 +4,12 @@ import { Text, TextInput, Button, HelperText } from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
 import { COLORS, globalStyles } from '../theme/theme';
 
+/**
+ * Rekisteröitymisnäyttö uuden käyttäjätilin luominen.
+ * Käyttäjä syöttää sähköpostin, salasanan ja salasanavahvistuksen.
+ * Lomake validoidaan ennen rekisteröinnin lähettämistä.
+ */
+
 export default function RegisterScreen({ navigation }) {
   const { register } = useAuth();
   const [email, setEmail] = useState('');
@@ -11,6 +17,15 @@ export default function RegisterScreen({ navigation }) {
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+
+/**
+   * Käsittelee rekisteröinnin.
+   * Validoi kentät järjestyksessä ennen API-kutsua:
+   * 1. Kaikki kentät täytetty
+   * 2. Salasanat täsmäävät
+   * 3. Salasana on vähintään 6 merkkiä pitkä
+   */
 
   const handleRegister = async () => {
     setError('');
@@ -111,6 +126,8 @@ export default function RegisterScreen({ navigation }) {
     </KeyboardAvoidingView>
   );
 }
+
+/*tyylit*/
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },

@@ -5,6 +5,8 @@ import { useAuth } from '../context/AuthContext';
 import { useLocations } from '../context/LocationContext';
 import { COLORS, globalStyles } from '../theme/theme';
 
+/*Tähtivalitsin :P */
+
 function StarRating({ rating }) {
   return (
     <View style={{ flexDirection: 'row', marginVertical: 4 }}>
@@ -16,6 +18,10 @@ function StarRating({ rating }) {
     </View>
   );
 }
+
+/**
+ * Kotinäyttö listaa käyttäjän tallentamat sijainnit ja tarjoaa mahdollisuuden lisätä uusia tai tarkastella niitä kartalla.
+ */
 
 export default function HomeScreen({ navigation }) {
   const { user, logout } = useAuth();
@@ -87,6 +93,8 @@ export default function HomeScreen({ navigation }) {
     </View>
   );
 }
+
+/*tyylit*/
 
 const styles = StyleSheet.create({
   header: {

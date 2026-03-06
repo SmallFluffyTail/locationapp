@@ -4,6 +4,11 @@ import { Text, TextInput, Button, HelperText } from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
 import { COLORS, globalStyles } from '../theme/theme';
 
+
+/**
+ * Kirjautumisnäyttö, Käyttäjä voi kirjautua sisään sähköpostilla ja salasanalla tai siirtyä rekisteröintinäyttöön.
+ */
+
 export default function LoginScreen({ navigation }) {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
@@ -11,6 +16,10 @@ export default function LoginScreen({ navigation }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+ /**
+   * Käsittelee kirjautumisen tarkistaa ensin, että molemmat kentät on täytetty, sitten kutsuu kontekstin login-funktiota.
+   */
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -99,6 +108,8 @@ export default function LoginScreen({ navigation }) {
     </KeyboardAvoidingView>
   );
 }
+
+/*tyylit*/
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },

@@ -5,12 +5,20 @@ import { Text, TextInput, Button, ActivityIndicator } from 'react-native-paper';
 import * as Location from 'expo-location';
 import { COLORS } from '../theme/theme';
 
+/*Oletusalue kartalle (Helsinki) keskipisteenä sovelluksen käynnistyessä*/
+
 const DEFAULT_REGION = {
   latitude: 60.1699,
   longitude: 24.9384,
   latitudeDelta: 0.05,
   longitudeDelta: 0.05,
 };
+
+/**
+ * Karttanäyttö näyttää interaktiivisen Google Maps kartan. Käyttäjä voi hakea sijainteja nimellä, jolloin kartta siirtyy ->
+ * löydettyyn paikkaan ja asettaa sinne merkinnän.
+ * Näyttö voi myös vastaanottaa sijainnin nimen navigointiparametrina.
+ */
 
 export default function MapScreen({ route }) {
   const mapRef = useRef(null);
@@ -20,6 +28,11 @@ export default function MapScreen({ route }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+/**
+   * Tarkistetaan navigointiparametrit, kun näyttö avautuu.
+   * Jos locationName on annettu (HomeScreenistä), haetaan se automaattisesti.
+   */
+
   useEffect(() => {
     const locationName = route?.params?.locationName;
     if (locationName) {
@@ -27,6 +40,13 @@ export default function MapScreen({ route }) {
       geocodeLocation(locationName);
     }
   }, [route?.params?.locationName]);
+
+
+/**
+   * Muuntaa sijaintin nimen koordinaateiksi Nominatim-geokoodauspalvelun avulla.
+   * Jos koordinaatit löydetään, kartta animoituu uuteen sijaintiin ja merkintä asetetaan.
+   * @param {string} name - Haettavan sijainnin nimi (valinnainen, käyttää hakukentän arvoa jos ei annettu)
+   */
 
 const geocodeLocation = async (name) => {
   const query = name || searchText;
@@ -117,6 +137,8 @@ const geocodeLocation = async (name) => {
     </View>
   );
 }
+
+/*tyylit*/
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

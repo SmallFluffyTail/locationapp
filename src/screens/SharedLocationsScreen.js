@@ -5,6 +5,8 @@ import { useAuth } from '../context/AuthContext';
 import { useLocations } from '../context/LocationContext';
 import { COLORS, globalStyles } from '../theme/theme';
 
+/*tähti arvostelu :P*/
+
 function StarRating({ rating }) {
   return (
     <View style={{ flexDirection: 'row' }}>
@@ -17,6 +19,10 @@ function StarRating({ rating }) {
   );
 }
 
+/**
+ Jaettujen sijaintien näyttö – listaa kaikki sijainnit, jotka muut käyttäjät ovat merkinneet julkisiksi.
+ */
+
 export default function SharedLocationsScreen() {
   const { user, logout } = useAuth();
   const { sharedLocations, fetchSharedLocations } = useLocations();
@@ -24,6 +30,11 @@ export default function SharedLocationsScreen() {
   useEffect(() => {
     fetchSharedLocations();
   }, []);
+
+/**
+   * Yksittäisen jaetun sijainnin kortti listassa.
+   * Näyttää nimen, jakajan, kuvauksen ja tähtiarvioin.
+   */
 
   const renderItem = ({ item }) => (
     <Card style={globalStyles.card}>
@@ -64,6 +75,8 @@ export default function SharedLocationsScreen() {
     </View>
   );
 }
+
+/*tyylit*/
 
 const styles = StyleSheet.create({
   header: {
