@@ -41,7 +41,7 @@ const geocodeLocation = async (name) => {
       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`,
       {
         headers: {
-          'User-Agent': 'LocationApp/1.0',  // Nominatim requires this
+          'User-Agent': 'LocationApp/1.0', 
         },
       }
     );

@@ -37,10 +37,7 @@ export default function HomeScreen({ navigation }) {
           mode="outlined"
           textColor={COLORS.primary}
           onPress={() =>
-            navigation.navigate('Map', {
-              screen: 'Map',
-              params: { locationName: item.name },
-            })
+                    navigation.navigate('Map', { locationName: item.name })
           }
         >
           View on Map
