@@ -28,36 +28,46 @@ export default function MapScreen({ route }) {
     }
   }, [route?.params?.locationName]);
 
-  const geocodeLocation = async (name) => {
-    const query = name || searchText;
-    if (!query.trim()) {
-      setError('Please enter a location name.');
-      return;
-    }
-    setLoading(true);
-    setError('');
-    try {
-      const results = await Location.geocodeAsync(query);
-      if (results.length > 0) {
-        const { latitude, longitude } = results[0];
-        const newRegion = {
-          latitude,
-          longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        };
-        setRegion(newRegion);
-        setMarker({ latitude, longitude, name: query });
-        mapRef.current?.animateToRegion(newRegion, 1000);
-      } else {
-        setError(`Location "${query}" not found.`);
+const geocodeLocation = async (name) => {
+  const query = name || searchText;
+  if (!query.trim()) {
+    setError('Please enter a location name.');
+    return;
+  }
+  setLoading(true);
+  setError('');
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`,
+      {
+        headers: {
+          'User-Agent': 'LocationApp/1.0',  // Nominatim requires this
+        },
       }
-    } catch (e) {
-      setError('Geocoding failed. Check your connection.');
-    } finally {
-      setLoading(false);
+    );
+    const data = await response.json();
+
+    if (data.length > 0) {
+      const latitude = parseFloat(data[0].lat);
+      const longitude = parseFloat(data[0].lon);
+      const newRegion = {
+        latitude,
+        longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      };
+      setRegion(newRegion);
+      setMarker({ latitude, longitude, name: query });
+      mapRef.current?.animateToRegion(newRegion, 1000);
+    } else {
+      setError(`Location "${query}" not found.`);
     }
-  };
+  } catch (e) {
+    setError('Search failed. Check your connection.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <View style={styles.container}>
